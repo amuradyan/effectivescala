@@ -1,7 +1,7 @@
 <a href="https://github.com/twitter/effectivescala"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub"></a>
 
-<h1 class="header">Էֆեկտիվ Scala</h1>
-<address>Marius Eriksen, Twitter Inc.<br />marius@twitter.com (<a href="https://twitter.com/marius">@marius</a>)<br /><br />[translated by Andranik Muradyan(<a href="https://github.com/amuradyan">@amuradyan</a>)]</address>
+<h1 class="header">Effective Scala</h1>
+<address>Marius Eriksen, Twitter Inc.<br />marius@twitter.com (<a href="https://twitter.com/marius">@marius</a>)<br /><br />[translated by Eugene Sysmanov(<a href="https://github.com/amuradyan">@spectrum</a>)]</address>
 
 <h2>Բովանդակություն</h2>
 
@@ -44,6 +44,7 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 
 Սա Scala-ի ներածություն չէ․ մենք ենթադրում ենք, որ ընթերցողը լեզվին ծանոթ է։
 Ահա մի քանի Scala սովորելու ռեսուրս․
+
 * [Scala School](https://twitter.github.com/scala_school/)
 * [Learning Scala](https://docs.scala-lang.org/)
 * [Learning Scala in Small Bites](https://matt.might.net/articles/learning-scala-in-small-bites/)

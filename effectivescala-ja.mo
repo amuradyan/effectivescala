@@ -12,6 +12,7 @@
 <a href="index.html">English</a>
 <a href="index-ru.html">Русский</a>
 <a href="index-cn.html">简体中文</a>
+<a href="index-hy.html">Հայերեն</a>
 
 ## 序章
 
