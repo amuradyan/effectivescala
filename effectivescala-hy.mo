@@ -17,10 +17,10 @@
 
 ## Ներածություն
 
-[Scala][Scala]ն Twitter-ում օգտագործվող հիմանական ծրագրավորման լեզուներից մեկն է.
+[Scala][Scala]-ն Twitter-ում օգտագործվող հիմանական ծրագրավորման լեզուներից մեկն է.
 Մեր ենթակառույցների մեծ մասը գրված է Scala-ով և
 [մենք ունենք մի քանի մեծ գրադարան](https://github.com/twitter/),
-որոնց մենք զբաղվում ենք։ Լինելով էֆեկտիվ -ն միևնույն ժամանակ լայն լեզու է,
+որոնց մենք զբաղվում ենք։ Լինելով էֆեկտիվ Scala-ն միևնույն ժամանակ լայն լեզու է,
 և մեր փորձը մեզ սովորեցրել է այն ուշադիր օգտագործել։
 Ի՞նչ թակարդներ կան։ Ո՞ր հատկություններն ենք մենք կիրառում, իսկ որոնցի՞ց խուսափում։
 Որ դեպքերում ենք մենք ծրագրավորում "մաքուր ֆունկցիոնալ ոճով" և երբ ոչ։
@@ -32,7 +32,7 @@
 հիմնավորված։
 
 Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ են տալիս համառոտ արտահայտվել։
-Քիչ տպելը բերում է քիչ կարդալուն, իսկ քիչ կարդակը հաճախ նշանակում է արագ կարդալ, և ուրեմն
+Քիչ տպելը բերում է քիչ կարդալուն, իսկ քիչ կարդաlը հաճախ նշանակում է արագ կարդալ, և ուրեմն
 համառոտությունը խթանում է հստակությունը։ Համառոտությունը սակայն բութ գործիք է և կարող է 
 հանգեցնել հակառակին։ Ծրագրի ճշտությունից հետո, միշտ մտածեք ընթերցողի մասին։
 
@@ -61,16 +61,15 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 
 Եվ վիսիլիտ արեք։
 
-## Formatting
+## Ձևաչափում
 
-The specifics of code *formatting* -- so long as they are practical --
-are of little consequence. By definition style cannot be inherently
-good or bad and almost everybody differs in personal
-preference. However the *consistent* application of the same 
-formatting rules will almost always enhance
-readability. A reader already familiar with a particular style does
-not have to grasp yet another set of local conventions, or decipher
-yet another corner of the language grammar.
+Ձևաչափման մանրամասները, քանի դեռ նրանք կիրառական չեն, մեծ դեր չեն խաղում։
+Ըստ սահմանման ոճը չի կարող լինել ինքնին լավը լամ վատը և համարյա բոլորը ունեն
+անձնական նախասիրություններ։ Այնուամենայնիվ կոնկրետ ոճին հետևողական լինելը համարյա
+միշտ բերում է ընթեռնելիության։ Կոնկրետ ոճին ծանոթ ընթերցողը ստիպված չի լինի հարմարվել
+ևս մի քանի լոկալ կանոնի։
+
+
 
 This is of particular importance to Scala, as its grammar has a high
 degree of overlap. One telling example is method invocation: Methods
