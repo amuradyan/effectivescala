@@ -80,46 +80,44 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 Մենք հետևում ենք [Scala-ի ձևաչափման ուղեցույցին](https://docs.scala-lang.org/style/)
 և հետևյալ կանոններին։
 
-### Whitespace
+### Բացատներ
 
-Indent by two spaces. Try to avoid lines greater than 100 columns in
-length. Use one blank line between method, class, and object definitions.
+Խորության միավոր ընդունիր երկու բացատը։ Խուսափիր 100 սյունից ավել երկարություն ունեցող
+տողերից։ Թող մեկ դատարկ տող դասերի, մեթոդների և օբյեկտների հայտարարությունների միջև։
 
-### Naming
+### Անուններ
 
 <dl class="rules">
-<dt>Use short names for small scopes</dt>
-<dd> <code>i</code>s, <code>j</code>s and <code>k</code>s are all but expected
-in loops. </dd>
-<dt>Use longer names for larger scopes</dt>
-<dd>External APIs should have longer and explanatory names that confer meaning.
-<code>Future.collect</code> not <code>Future.all</code>.
+<dt>Օգտագործիր կրճատ անուններ կոդի նեղ հատվածներում</dt>
+<dd> <code>i</code>, <code>j</code> և <code>k</code> անունները բավականին ընդունելի են 
+ցիկլերում։</dd>
+<dt>Օգտագործիր երկար անուններ կոդի լայն հատվածներում</dt>
+<dd>Արտաքին API-ները պիտի ունենան համեմատաբար երկար, իմաստային և խոսուն անուններ։
+<code>Future.collect</code> և ոչ <code>Future.all</code>։
 </dd>
-<dt>Use common abbreviations but eschew esoteric ones</dt>
+<dt>Օգտագործիր ընդունված հապավումները և խուսափիր էզոթերիկներից։</dt>
 <dd>
-Everyone
-knows <code>ok</code>, <code>err</code> or <code>defn</code> 
-whereas <code>sfri</code> is not so common.
+Բոլորը գիտեն <code>ok</code>, <code>err</code> կամ <code>defn</code>-ի 
+մասին, իսկ <code>sfri</code> այդքան տարածված չէ։
 </dd>
-<dt>Don't rebind names for different uses</dt>
-<dd>Use <code>val</code>s</dd>
-<dt>Avoid using <code>`</code>s to overload reserved names.</dt>
-<dd><code>typ</code> instead of <code>`type</code>`</dd>
-<dt>Use active names for operations with side effects</dt>
-<dd><code>user.activate()</code> not <code>user.setActive()</code></dd>
-<dt>Use descriptive names for methods that return values</dt>
-<dd><code>src.isDefined</code> not <code>src.defined</code></dd>
-<dt>Don't prefix getters with <code>get</code></dt>
-<dd>As per the previous rule, it's redundant: <code>site.count</code> not <code>site.getCount</code></dd>
-<dt>Don't repeat names that are already encapsulated in package or object name</dt>
-<dd>Prefer:
+<dt>Մի վերաօգտագործիր անունները այլ կիրառությունների համար։</dt>
+<dd>Օգտագործիր <code>val</code>-եր</dd>
+<dt>Խուսափիր օգտագործել <code>`</code>-ը լեզվի հատուկ անունները գերբեռնելու նպատակով։</dt>
+<dd><code>`type`</code>-ի փոխարեն <code>typ</code></dd>
+<dt>Օգտագործիր "ակտիվ" անուններ կողմնակի ազդեցություններ ունեցող գործողությունների համար։</dt>
+<dd><code>user.activate()</code> ոչ <code>user.setActive()</code></dd>
+<dt>Օգտագործիր խոսուն անուններ մեթոդների համար, որոնք արժեք են վերադարձնում։</dt>
+<dd><code>src.isDefined</code> ոչ <code>src.defined</code></dd>
+<dt>Մի նախադասիր getter-ները <code>get</code>-ով։</dt>
+<dd>Նախորդ օրինակի պես դա արժեք չի ավելացնում․ <code>site.count</code> այլ ոչ <code>site.getCount</code></dd>
+<dt>Մի կրկնիր անունները, որոնք արդեն կան package-ում կամ օբյեկտում։</dt>
+<dd>Գերադասիր սա՝ :
 <pre><code>object User {
   def get(id: Int): Option[User]
-}</code></pre> to
+}</code></pre> սրան
 <pre><code>object User {
   def getUser(id: Int): Option[User]
-}</code></pre>They are redundant in use: <code>User.getUser</code> provides
-no more information than <code>User.get</code>.
+}</code></pre>Այդպիսի անունները ավելորդ են․ <code>User.getUser</code>-ը նաղորդում է նույնքան ինֆորմացիա, որքան <code>User.get</code>-ը։
 </dd>
 </dl>
 
