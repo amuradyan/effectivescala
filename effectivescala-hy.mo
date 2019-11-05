@@ -1,7 +1,7 @@
 <a href="https://github.com/twitter/effectivescala"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub"></a>
 
 <h1 class="header">Effective Scala</h1>
-<address>Marius Eriksen, Twitter Inc.<br />marius@twitter.com (<a href="https://twitter.com/marius">@marius</a>)<br /><br />[translated by Eugene Sysmanov(<a href="https://github.com/amuradyan">@spectrum</a>)]</address>
+<address>Marius Eriksen, Twitter Inc.<br />marius@twitter.com (<a href="https://twitter.com/marius">@marius</a>)<br /><br />[translated by Andranik Muradyan(<a href="https://github.com/amuradyan">@spectrum</a>)]</address>
 
 <h2>Բովանդակություն</h2>
 
@@ -17,7 +17,7 @@
 
 ## Ներածություն
 
-[Scala][Scala]-ն Twitter-ում օգտագործվող հիմանական ծրագրավորման լեզուներից մեկն է.
+[Scala][Scala]-ն Twitter-ում օգտագործվող հիմանական ծրագրավորման լեզուներից մեկն է։
 Մեր ենթակառույցների մեծ մասը գրված է Scala-ով և
 [մենք ունենք մի քանի մեծ գրադարան](https://github.com/twitter/),
 որոնց մենք զբաղվում ենք։ Լինելով էֆեկտիվ Scala-ն միևնույն ժամանակ լայն լեզու է,
@@ -59,7 +59,7 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 Այսպիսով բարդությունը այն գինն է, որը վճարում ենք ծավալունության դիմաց և հարկավոր է համոզվել
 որ այն չի գերազանցում շահը։
 
-Եվ վիսիլիտ արեք։
+Եվ հաճույք ստացեք։
 
 ## Ձևաչափում
 
@@ -69,19 +69,16 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 միշտ բերում է ընթեռնելիության։ Կոնկրետ ոճին ծանոթ ընթերցողը ստիպված չի լինի հարմարվել
 ևս մի քանի լոկալ կանոնի։
 
+Այս կանոնները հատկապես կարևոր են Scala-ի համար, քանի որ նրա քերականությունը ունի շատ
+"հոմանիշներ"։ Օրինակներից մեկը մեթոդների կանչի մեխանիզմն է․ մեթոդները կարող են կանչվել
+"`.`"-ով, բացատով, փակագծերով, առանց փակագծերի կամ փակագծերով առանց կամ մեկ արգումենտով
+մեթոդների համար և այլն։ Ավելին՝ մեթոդի կանչի նման բազմազանությունը ավելի տեսանելի է
+դարձնում քերականությունում տարբեր երկիմաստությունները։ Վստահ, գրագետ ընտրված ձևաչափման
+կանոնների սիստեմատիկ կիրառումը կարող է լուծել նման երկիմաստությունների խնդիրը թե մարդու
+և թե մեքենայի համար։
 
-
-This is of particular importance to Scala, as its grammar has a high
-degree of overlap. One telling example is method invocation: Methods
-can be invoked with "`.`", with whitespace, without parenthesis for
-nullary or unary methods, with parenthesis for these, and so on.
-Furthermore, the different styles of method invocations expose
-different ambiguities in its grammar! Surely the consistent
-application of a carefully chosen set of formatting rules will resolve
-a great deal of ambiguity for both man and machine.
-
-We adhere to the [Scala style
-guide](https://docs.scala-lang.org/style/) plus the following rules.
+Մենք հետևում ենք [Scala-ի ձևաչափման ուղեցույցին](https://docs.scala-lang.org/style/)
+և հետևյալ կանոններին։
 
 ### Whitespace
 
