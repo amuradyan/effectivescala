@@ -1,4 +1,5 @@
 <a href="https://github.com/twitter/effectivescala"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub"></a>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 
 <h1 class="header">Effective Scala</h1>
 <address>Marius Eriksen, Twitter Inc.<br />marius@twitter.com (<a href="https://twitter.com/marius">@marius</a>)<br /><br />[translated by Andranik Muradyan(<a href="https://github.com/amuradyan">@spectrum</a>)]</address>
@@ -20,7 +21,7 @@
 [Scala][Scala]-ն Twitter-ում օգտագործվող հիմանական ծրագրավորման լեզուներից մեկն է։
 Մեր ենթակառույցների մեծ մասը գրված է Scala-ով և
 [մենք ունենք մի քանի մեծ գրադարան](https://github.com/twitter/),
-որոնց մենք զբաղվում ենք։ Լինելով էֆեկտիվ Scala-ն միևնույն ժամանակ լայն լեզու է,
+որոնց մենք սպասարկում ենք։ Լինելով էֆեկտիվ Scala-ն միևնույն ժամանակ լայն լեզու է,
 և մեր փորձը մեզ սովորեցրել է այն ուշադիր օգտագործել։
 Ի՞նչ թակարդներ կան։ Ո՞ր հատկություններն ենք մենք կիրառում, իսկ որոնցի՞ց խուսափում։
 Որ դեպքերում ենք մենք ծրագրավորում "մաքուր ֆունկցիոնալ ոճով" և երբ ոչ։
@@ -32,7 +33,7 @@
 հիմնավորված։
 
 Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ են տալիս համառոտ արտահայտվել։
-Քիչ տպելը բերում է քիչ կարդալուն, իսկ քիչ կարդաlը հաճախ նշանակում է արագ կարդալ, և ուրեմն
+Քիչ տպելը բերում է քիչ կարդալուն, իսկ քիչ կարդալը հաճախ նշանակում է արագ կարդալ, և ուրեմն
 համառոտությունը խթանում է հստակությունը։ Համառոտությունը սակայն բութ գործիք է և կարող է 
 հանգեցնել հակառակին։ Ծրագրի ճշտությունից հետո, միշտ մտածեք ընթերցողի մասին։
 
@@ -64,7 +65,7 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 ## Ձևաչափում
 
 Ձևաչափման մանրամասները, քանի դեռ նրանք կիրառական չեն, մեծ դեր չեն խաղում։
-Ըստ սահմանման ոճը չի կարող լինել ինքնին լավը լամ վատը և համարյա բոլորը ունեն
+Ըստ սահմանման ոճը չի կարող լինել ինքնին լավը կամ վատը և համարյա բոլորը ունեն
 անձնական նախասիրություններ։ Այնուամենայնիվ կոնկրետ ոճին հետևողական լինելը համարյա
 միշտ բերում է ընթեռնելիության։ Կոնկրետ ոճին ծանոթ ընթերցողը ստիպված չի լինի հարմարվել
 ևս մի քանի լոկալ կանոնի։
@@ -82,65 +83,66 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 
 ### Բացատներ
 
-Խորության միավոր ընդունիր երկու բացատը։ Խուսափիր 100 սյունից ավել երկարություն ունեցող
+Խորության միավոր ընդունիր երկու բացատը։ Խուսափիր 100 նիշից ավել երկարություն ունեցող
 տողերից։ Թող մեկ դատարկ տող դասերի, մեթոդների և օբյեկտների հայտարարությունների միջև։
 
 ### Անուններ
 
 <dl class="rules">
-<dt>Օգտագործիր կրճատ անուններ կոդի նեղ հատվածներում</dt>
-<dd> <code>i</code>, <code>j</code> և <code>k</code> անունները բավականին ընդունելի են 
+<dt>Օգտագործեք կրճատ անուններ կոդի նեղ հատվածներում</dt>
+<dd><code class="prettyprint">i</code>, <code class="prettyprint">j</code> և <code class="prettyprint">k</code> անունները բավականին ընդունելի են 
 ցիկլերում։</dd>
-<dt>Օգտագործիր երկար անուններ կոդի լայն հատվածներում</dt>
+<dt>Օգտագործեք երկար անուններ կոդի լայն հատվածներում</dt>
 <dd>Արտաքին API-ները պիտի ունենան համեմատաբար երկար, իմաստային և խոսուն անուններ։
-<code>Future.collect</code> և ոչ <code>Future.all</code>։
+		<code class="prettyprint">Future.collect</code> այլ ոչ <code class="prettyprint">Future.all</code>
 </dd>
-<dt>Օգտագործիր ընդունված հապավումները և խուսափիր էզոթերիկներից։</dt>
+<dt>Օգտագործեք ընդունված հապավումները և խուսափիր էզոթերիկներից։</dt>
 <dd>
-Բոլորը գիտեն <code>ok</code>, <code>err</code> կամ <code>defn</code>-ի 
-մասին, իսկ <code>sfri</code> այդքան տարածված չէ։
+Բոլորը գիտեն <code class="prettyprint">ok</code>, <code class="prettyprint">err</code> կամ <code class="prettyprint">defn</code>-ի 
+մասին, իսկ <code class="prettyprint">sfri</code> այդքան տարածված չէ։
 </dd>
 <dt>Մի վերաօգտագործիր անունները այլ կիրառությունների համար։</dt>
-<dd>Օգտագործիր <code>val</code>-եր</dd>
-<dt>Խուսափիր օգտագործել <code>`</code>-ը լեզվի հատուկ անունները գերբեռնելու նպատակով։</dt>
-<dd><code>`type`</code>-ի փոխարեն <code>typ</code></dd>
-<dt>Օգտագործիր "ակտիվ" անուններ կողմնակի ազդեցություններ ունեցող գործողությունների համար։</dt>
-<dd><code>user.activate()</code> ոչ <code>user.setActive()</code></dd>
+<dd>Օգտագործեք <code class="prettyprint">val</code>-եր</dd>
+<dt>Խուսափիր օգտագործել <code class="prettyprint">`</code>-ը լեզվի հատուկ անունները գերբեռնելու նպատակով։</dt>
+<dd><code class="prettyprint">`type`</code>-ի փոխարեն <code class="prettyprint">typ</code></dd>
+<dt>Օգտագործեք "ակտիվ" անուններ կողմնակի ազդեցություններ ունեցող գործողությունների համար։</dt>
+<dd><code class="prettyprint">user.activate()</code> այլ ոչ <code class="prettyprint">user.setActive()</code></dd>
 <dt>Օգտագործիր խոսուն անուններ մեթոդների համար, որոնք արժեք են վերադարձնում։</dt>
-<dd><code>src.isDefined</code> ոչ <code>src.defined</code></dd>
+<dd><code class="prettyprint">src.isDefined</code> այլ ոչ <code class="prettyprint">src.defined</code></dd>
 <dt>Մի նախադասիր getter-ները <code>get</code>-ով։</dt>
-<dd>Նախորդ օրինակի պես դա արժեք չի ավելացնում․ <code>site.count</code> այլ ոչ <code>site.getCount</code></dd>
-<dt>Մի կրկնիր անունները, որոնք արդեն կան package-ում կամ օբյեկտում։</dt>
-<dd>Գերադասիր սա՝ :
-<pre><code>object User {
+<dd>Նախորդ օրինակի պես դա արժեք չի ավելացնում․ <code class="prettyprint">site.count</code> այլ ոչ <code class="prettyprint">site.getCount</code></dd>
+<dt>Մի կրկնեք անունները, որոնք արդեն կան package-ում կամ օբյեկտում։</dt>
+<dd>Գերադասեք սա՝ :
+	<pre class="prettyprint"><code>object User {
   def get(id: Int): Option[User]
 }</code></pre> սրան
-<pre><code>object User {
+<pre class="prettyprint"><code>object User {
   def getUser(id: Int): Option[User]
 }</code></pre>Այդպիսի անունները ավելորդ են․ <code>User.getUser</code>-ը նաղորդում է նույնքան ինֆորմացիա, որքան <code>User.get</code>-ը։
 </dd>
 </dl>
 
 
-### Imports
+### Ներմուծումներ
 
 <dl class="rules">
-<dt>Sort import lines alphabetically</dt>
-<dd>This makes it easy to examine visually, and is simple to automate.</dd>
-<dt>Use braces when importing several names from a package</dt>
-<dd><code>import com.twitter.concurrent.{Broker, Offer}</code></dd>
-<dt>Use wildcards when more than six names are imported</dt>
-<dd>e.g.: <code>import com.twitter.concurrent._</code>
-<br />Don't apply this blindly: some packages export too many names</dd>
-<dt>When using collections, qualify names by importing 
-<code>scala.collection.immutable</code> and/or <code>scala.collection.mutable</code></dt>
-<dd>Mutable and immutable collections have dual names. 
-Qualifiying the names makes it obvious to the reader which variant is being used (e.g. "<code>immutable.Map</code>")</dd>
-<dt>Do not use relative imports from other packages</dt>
-<dd>Avoid <pre><code>import com.twitter
-import concurrent</code></pre> in favor of the unambiguous <pre><code>import com.twitter.concurrent</code></pre></dd>
-<dt>Put imports at the top of the file</dt>
-<dd>The reader can refer to all imports in one place.</dd>
+<dt>Դասավորեք ներմուծումները այբբենական</dt>
+<dd>Սա հեշտացնում է նրանց հետ աշխատանքը թե անզեն աջքով և թե ավտոմատացված</dd>
+<dt>Օգտագործեք ձևավոր փակագծեր երբ ներմուծում ես մի քանի անուն փաթեթից</dt>
+<dd><code class="prettyprint">import com.twitter.concurrent.{Broker, Offer}</code></dd>
+<dt>Օգտագործեք wildcards 6-ից ավել անուններ եք ներմուծում</dt>
+<dd>e.g.: <code class="prettyprint">import com.twitter.concurrent._</code>
+<br />Սակայն մի արեք այսպես կուրորեն․ որոշ փաթեթներ պարունակում են չափից շատ անուններ</dd>
+<dt>Հավաքածուներից օգտվելուց սահմանեք անունն ներմուծելով 
+<code class="prettyprint">scala.collection.immutable</code> և/կամ <code class="prettyprint">scala.collection.mutable</code></dt>
+<dd>Փոփոխվող և չփոփոխվող հավաքածուները պարունակում են կրկնվող անուններ։ 
+Նման ձևով անունները սահմանելը բացահայտ է դարձնում ընթերցողի համար, թե հավաքածուի որ տարբերակն է օգտագործվում (օր.՝ <code class="prettyprint">immutable.Map</code>)</dd>
+<dt>Մի օգտագործեք հարաբերական ներմուծումներ այլ փաթեթներից</dt>
+<dd>Խուսափեք
+	<pre class="prettyprint"><code>import com.twitter
+import concurrent</code></pre> ի օգուտ <pre class="prettyprint"><code>import com.twitter.concurrent</code></pre></dd>
+<dt>Տեղավորեք ներմուծումները ֆայլի սկզբում</dt>
+<dd>Այսպես ընթերցողը կկարողանա հղվել ներմուծումներին մեկ տեղում։</dd>
 </dl>
 
 ### Braces
@@ -1416,7 +1418,7 @@ val g = (s: String) => s+s+s
 val h = g compose f  // : Int => String
 	
 scala> h(123)
-res0: java.lang.String = 123123123</code></pre>
+res0: java.lang.String = 123123123</code>
 
 .LP the function <em>h</em> being the composite. It is a <em>new</em> function that combines both <em>f</em> and <em>g</em> in a predefined way.
 </div>

@@ -35,6 +35,15 @@
 /*		line-height: 1.3em;*/
 	}
 
+	code.prettyprint {
+		border: none !important;
+		background: #f3f3f3;
+}
+	pre.prettyprint {
+			border: none !important;
+			background: #f3f3f3;
+	}
+
 	address {
 		text-align: center;
 	}
