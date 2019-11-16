@@ -36,10 +36,12 @@
 	}
 
 	code.prettyprint {
+		padding: 5px;
 		border: none !important;
 		background: #f3f3f3;
 }
 	pre.prettyprint {
+			padding: 5px !important;
 			border: none !important;
 			background: #f3f3f3;
 	}

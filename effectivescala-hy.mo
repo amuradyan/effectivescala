@@ -145,65 +145,67 @@ import concurrent</code></pre> ի օգուտ <pre class="prettyprint"><code>impo
 <dd>Այսպես ընթերցողը կկարողանա հղվել ներմուծումներին մեկ տեղում։</dd>
 </dl>
 
-### Braces
+### Ձևավոր փակագծեր
 
-Braces are used to create compound expressions (they serve other uses
-in the "module language"), where the value of the compound expression
-is the last expression in the list. Avoid using braces for simple
-expressions; write
+Ձևավոր փակագծերը օգտագործվում են բաղադրյալ արտահայտություններ ստեղծելու համար (նրանք նաև ունեն այլ կիրառություն 
+"մոդուլների լեզվում"), որտեղ բաղադրյալ արտահայտության արժեքը բաղադրիչ արտահայտություններից վերջինի արժեքն է։
+Խուսափեք ձևավոր փակագծերից պարզ արտահայտությունների դեպքում․ գրեք՝
 
-	def square(x: Int) = x*x
+<pre class="prettyprint"><code class="prettyprint">def square(x: Int) = x * x</code></pre>
 	
-.LP but not
+.LP բայց ոչ
 
-	def square(x: Int) = {
-	  x * x
-	}
+<pre class="prettyprint"><code>def square(x: Int) = {
+  x * x
+}</code></pre>
 	
-.LP even though it may be tempting to distinguish the method body syntactically. The first alternative has less clutter and is easier to read. <em>Avoid syntactical ceremony</em> unless it clarifies.
+.LP չնայած կարող է ցանկություն առաջանալ տարանջատել մեթոդի մարմինը քերականապես։ Առաջին տարբերակը ավելի քիչ աղմկոտ է և հեշտ ընթեռնելի։ <em>Խուսափեք քերականական արարողություններից</em> եթե նրանք միտքը չեն պարզեցնում։
 
-### Pattern matching
+### Նմանեցում
 
-Use pattern matching directly in function definitions whenever applicable;
-instead of
+Օգտագործեք Նմանեցումը անմիջապես ֆունկցիայի սահմանման մեջ։ Սրա փոխարեն
 
-	list map { item =>
-	  item match {
-	    case Some(x) => x
-	    case None => default
-	  }
+<pre class="prettyprint"><code>list map { item =>
+	item match {
+		case Some(x) => x
+		case None => default
 	}
-	
-.LP collapse the match
+}
+</code></pre>
 
-	list map {
-	  case Some(x) => x
-	  case None => default
-	}
+.LP դուրս բերեք նմանեցումը
 
-.LP it's clear that the list items are being mapped over &mdash; the extra indirection does not elucidate.
+<pre class="prettyprint"><code>list map {
+	case Some(x) => x
+	case None => default
+}
+</code></pre>
 
-### Comments
+.LP ակնհայտ է որ նմանեցվում են ցուցակի տարրերը &mdash; հղման հերթական բացահայտ շերտը նոր բան չի պատմում։
 
-Use [ScalaDoc](https://wiki.scala-lang.org/display/SW/Scaladoc) to
-provide API documentation. Use the following style:
+### Մեկնաբանություններ
 
-	/**
-	 * ServiceBuilder builds services 
-	 * ...
-	 */
-	 
-.LP but <em>not</em> the standard ScalaDoc style:
+API նկարագրությունը տրամադրելու հարցում օգտվեք [ScalaDoc](https://wiki.scala-lang.org/display/SW/Scaladoc)-ից։
+Օգտագործեք հետևյալ ոճը․
 
-	/** ServiceBuilder builds services
-	 * ...
-	 */
+<pre class="prettyprint"><code>/**
+	* ServiceBuilder builds services 
+	* ...
+	*/
+</code></pre>
 
-Do not resort to ASCII art or other visual embellishments. Document
-APIs but do not add unnecessary comments. If you find yourself adding
-comments to explain the behavior of your code, ask first if it can be
-restructured so that it becomes obvious what it does. Prefer
-"obviously it works" to "it works, obviously" (with apologies to Hoare).
+.LP այլ <em>ոչ</em> դասական ScalaDoc ոճը:
+
+<pre class="prettyprint"><code>/** ServiceBuilder builds services
+	* ...
+	*/
+</code></pre>
+
+Մի օգտագործեք ASCII արվեստ կամ այլ տեսողական զարդարանքներ. Նկարագրեք
+API-ները և մի արեք կոդի անտեղի մեկնաբանություններ։ Եթե դուք նկատում եք որ 
+կարիք կա մեկնաբանել թե ինչպես է կոդը աշխատում, նախ հասկացեք հանարավո՞ր է արդյոք
+այն ձևափոխել այնպես որ այն դառնա ավելի խոսուն։ Գերադասեք
+"Միանշանակ սա աշխատելու է"-ն "Փաստացի սա աշխատում է"-ին (Ներողություն [Hoare](https://en.wikipedia.org/wiki/Tony_Hoare)).
 
 ## Types and Generics
 
