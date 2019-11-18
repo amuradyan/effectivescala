@@ -207,46 +207,46 @@ API-ները և մի արեք կոդի անտեղի մեկնաբանությու
 այն ձևափոխել այնպես որ այն դառնա ավելի խոսուն։ Գերադասեք
 "Միանշանակ սա աշխատելու է"-ն "Փաստացի սա աշխատում է"-ին (Ներողություն [Hoare](https://en.wikipedia.org/wiki/Tony_Hoare)).
 
-## Types and Generics
+## Հստակ և ընդհանրացնող տիպեր
 
-The primary objective of a type system is to detect programming
-errors. The type system effectively provides a limited form of static
-verification, allowing us to express certain kinds of invariants about
-our code that the compiler can verify. Type systems provide other
-benefits too of course, but error checking is its Raison d&#146;&Ecirc;tre.
+Տիպերի համակարգի առաջնային խնդիրը ծրագրում սխալներ գտելն է։ Տիպերի համակարգը հնարավոր
+է դարձնում է ստատիկ ստուգման մի եղանակ, թույլ տալով մեզ նշել որոշակի դրույթներ մեր կոդի 
+մասին, որոնք կոմպիլյատորը կկարողանա ստուգել։ Տիպերի համակարգերը ունեն նաև այլ լավ կողմեր 
+բայց սխալների ստուգումը նրանց գոյության հիմնական պատճառն է։
 
-Our use of the type system should reflect this goal, but we must
-remain mindful of the reader: judicious use of types can serve to
-enhance clarity, being unduly clever only obfuscates.
+Տիպերի համակարգի մեր կիրառությունը պետք է արտացոլի այդ փաստը, բայց նաև պետք է հիշել 
+ընթերցողի մասին․ տիպերի խելամիտ կիրառությունը նպաստում է կոդի պարզությանը, իսկ անտեղի
+"խելացիությունը" կոդը բարդացնում է։
 
-Scala's powerful type system is a common source of academic
-exploration and exercise (eg. [Type level programming in
-Scala](https://apocalisp.wordpress.com/2010/06/08/type-level-programming-in-scala/)).
-While a fascinating academic topic, these techniques rarely find
-useful application in production code. They are to be avoided.
+Scala-ի հզոր տիպերի համակարգը ակադեմիական փորձարկումների հայտնի աղբյուր է, 
+(օր․՝ [Type level programming in Scala](https://apocalisp.wordpress.com/2010/06/08/type-level-programming-in-scala/)).
+Լինելով հրաշալի ակադեմիական նյութ, այս մոտեցումները հազվադեպ են գտնում կիրառություն "աշխատանքային" կոդում։
+Նրանցից հարկավոր է խուսափել։ 
 
-### Return type annotations
+### Վերադարձի տիպի անոտացիաներ
 
-While Scala allows these to be omitted, such annotations provide good
-documentation: this is especially important for public methods. Where a
-method is not exposed and its return type obvious, omit them.
+Չնայած որ Scala-ն թույլ է տալիս սրանք չնշել, նման անոտացիաները հադիսանում են լավ նկարագրություն․
+սա հատկապես կարևոր է "բաց" մեթոդների համար։ Այն դեպքերում երբ մեթոդը "փակ" է և նրա վերադարձի տիպը
+ակնհայտ է - նման անոտացիայի կարիք չկա։ 
 
-This is especially important when instantiating objects with mixins as
-the scala compiler creates singleton types for these. For example, `make`
-in:
+Սա հատկապես կարևոր է [խառնուրդ](https://en.wikipedia.org/wiki/Mixin) տիպի օբյեկտների հետ
+աշխատանքի ժամանակ, քանի որ Scala-ն նման դեպքերում ստեղծում է հատուկ եզակի տիպեր։
+Ստորև բերված օրինակում `make` մեթոդի վերադարձի տիպը <code class="prettyprint">Service</code> <em>չէ</em>․ կոմպիլյատորը այս դեպքում
+ստեղծում է հատուկ տիպ՝ <code class="prettyprint">Object with Service{def getId: Int}</code>
 
-	trait Service
-	def make() = new Service {
-	  def getId = 123
-	}
+<pre class="prettyprint"><code>trait Service
 
-.LP does <em>not</em> have a return type of <code>Service</code>; the compiler creates the refinement type <code>Object with Service{def getId: Int}</code>. Instead use an explicit annotation:
+def make() = new Service {
+	def getId = 123
+}
+</code></pre>
 
-	def make(): Service = new Service{}
+.LP Փոխարենը բացահայտ նշեք տիպը․
 
-Now the author is free to mix in more traits without changing the
-public type of `make`, making it easier to manage backwards
-compatibility.
+<pre class="prettyprint"><code>def make(): Service = new Service{}</code></pre>
+
+Այժմ հեղինակը կարող է հանգիստ գործածել հավելյալ "[հատկանիշներ](https://en.wikipedia.org/wiki/Trait_(computer_programming))" առանց `make`-ի վերադարձի
+տիպը փոփոխելու՝ հեշտացնելով հետհամատեղելիությունը։
 
 ### Variance
 
@@ -297,52 +297,56 @@ is typically invalid with mutable collections. Consider
   *	show contravariance trick?
 -->
 
-### Type aliases
+### Հոմանիշ տիպեր
 
-Use type aliases when they provide convenient naming or clarify
-purpose, but do not alias types that are self-explanatory.
+Հայտարարեք հոմանիշ տիպեր եթե նրանք խթանում են պատշաճ անվանումներ կամ պարզաբանում են նպատակը,
+բայց ոչ երբ սկզբնական տիպը ինքնաբացատրական է։
 
-	() => Int
+<pre class="prettyprint"><code>() => Int</code></pre>
 
-.LP is clearer than
+.LP ավելի պարզ է քան
 
-	type IntMaker = () => Int
-	IntMaker
+<pre class="prettyprint"><code>type IntMaker = () => Int
+IntMaker
+</code></pre>
 
-.LP since it is both short and uses a common type. However
+.LP քանի որ այն և կարճ է և օգտագործում է հասարակ տիպ։ Սակայն
 
-	class ConcurrentPool[K, V] {
-	  type Queue = ConcurrentLinkedQueue[V]
-	  type Map   = ConcurrentHashMap[K, Queue]
-	  ...
-	}
+<pre class="prettyprint"><code>class ConcurrentPool[K, V] {
+	type Queue = ConcurrentLinkedQueue[V]
+	type Map   = ConcurrentHashMap[K, Queue]
+	...
+}
+</code></pre>
 
-.LP is helpful since it communicates purpose and enhances brevity.
+.LP օգտակար է քանի որ այն պարզաբանում է նպատակը և խրախուսում է հակիրճությունը։
 
-Don't use subclassing when an alias will do.
+Մի ստեղծեք ենթատիպեր որտեղ հոմանիշները բավարար են։
 
-	trait SocketFactory extends (SocketAddress => Socket)
+<pre class="prettyprint"><code>trait SocketFactory extends (SocketAddress => Socket)</code></pre>
 	
-.LP a <code>SocketFactory</code> <em>is</em> a function that produces a <code>Socket</code>. Using a type alias
+.LP <code class="prettyprint">SocketFactory</code>-ն ֆունկցիա է որը ստեղծում է <code class="prettyprint">Socket</code>. Այս դեպքերում նպատակահարմար է օգտագործել տիպի հոմանիշներ։
 
-	type SocketFactory = SocketAddress => Socket
+<pre class="prettyprint"><code>type SocketFactory = SocketAddress => Socket</code></pre>
 
-.LP is better. We may now provide function literals for values of type <code>SocketFactory</code> and also use function composition:
+Այժմ մենք կարող ենք սահմանել անվանական ֆունկցիաներ <code class="prettyprint">SocketFactory</code> տիպի արժեքների համար, ինչպես նաև կիրառել
+ֆունկցիաների շարադրում։
 
-	val addrToInet: SocketAddress => Long
-	val inetToSocket: Long => Socket
+<pre class="prettyprint"><code>val addrToInet: SocketAddress => Long
+val inetToSocket: Long => Socket
 
-	val factory: SocketFactory = addrToInet andThen inetToSocket
+val factory: SocketFactory = addrToInet andThen inetToSocket
+</code></pre>
 
-Type aliases are bound to toplevel names by using package objects:
+Տիպերի հոմանիշները կցված են վերին մակարդակի անուններին փաթեթի օբյեկտների միջոցով․
 
-	package com.twitter
-	package object net {
-	  type SocketFactory = (SocketAddress) => Socket
-	}
+<pre class="prettyprint"><code>package com.twitter
+package object net {
+	type SocketFactory = (SocketAddress) => Socket
+}
+</code></pre>
 
-Note that type aliases are not new types -- they are equivalent to
-the syntactically substituting the aliased name for its type.
+Նկատեք որ տիպերի հոմանիշները նոր տիպեր չեն - նրանք համարժեք են և քերականապես փոխարինվում են իրենց հիմքում ընկած տիպերի անվանումներով։
 
 ### Implicits
 
