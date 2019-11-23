@@ -393,27 +393,6 @@ the complexity, the following diagram contains the important
 distinctions for both `immutable` and `mutable` hierarchies
 
 <img src="coll.png" style="margin-left: 3em;" />
-.cmd
-pic2graph -format png >coll.png <<EOF 
-boxwid=1.0
-
-.ft I
-.ps +9
-
-Iterable: [
-	Box: box wid 1.5*boxwid
-	"\s+2Iterable[T]\s-2" at Box
-]
-
-Seq: box "Seq[T]" with .n at Iterable.s + (-1.5, -0.5)
-Set: box "Set[T]" with .n at Iterable.s + (0, -0.5)
-Map: box "Map[T]" with .n at Iterable.s + (1.5, -0.5)
-
-arrow from Iterable.s to Seq.ne
-arrow from Iterable.s to Set.n
-arrow from Iterable.s to Map.nw
-EOF
-.endcmd
 
 .LP <code>Iterable[T]</code> is any collection that may be iterated over, they provide an <code>iterator</code> method (and thus <code>foreach</code>). <code>Seq[T]</code>s are collections that are <em>ordered</em>, <code>Set[T]</code>s are mathematical sets (unordered collections of unique items), and <code>Map[T]</code>s are associative arrays, also unordered.
 
