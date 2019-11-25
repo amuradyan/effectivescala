@@ -52,7 +52,7 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 
 Սա "կենդանի" ռեսուրս է որը կարող է փոփոխվել, արտացոլելու մեր ներկայիս "լավ մոտեցումները",
 բայց առանցքային փոփոխությունները քիչ հավանական են։ Միշտ հաշվի առեք ընթեռնելիությունը․ գրեք
-—ջեներիք— կոդ, բայց ոչ ընթեռնելիության հաշվին․ օգտվեք լեզվի պարզ կողմերից որոնք լայն
+generic կոդ, բայց ոչ ընթեռնելիության հաշվին․ օգտվեք լեզվի պարզ կողմերից որոնք լայն
 հնարավորություններ են ընձեռում բայց խուսափեք էզոթերիկ կողմերից (հատկապես տիպերի համակարգի)։
 Ամենից առավել, միշտ հստակ հասկացեք թե ինչ եք շահում և ինչ կորցնում տվյալ որոշումը կայացնելիս։
 Ծավալուն լեզուն հաճախ բերում է բարդ իրագործման, իսկ բարդությունը բարդություն է ծնում․ դատողության,
@@ -83,8 +83,8 @@ Scala-ն տրամադրում է շատ գործիքներ որոնք թույլ
 
 ### Բացատներ
 
-Խորության միավոր ընդունիր երկու բացատը։ Խուսափիր 100 նիշից ավել երկարություն ունեցող
-տողերից։ Թող մեկ դատարկ տող դասերի, մեթոդների և օբյեկտների հայտարարությունների միջև։
+Խորության միավոր ընդունեք երկու բացատը։ Խուսափեք 100 նիշից ավել երկարություն ունեցող
+տողերից։ Թողեք մեկ դատարկ տող դասերի, մեթոդների և օբյեկտների հայտարարությունների միջև։
 
 ### Անուններ
 
@@ -248,49 +248,49 @@ def make() = new Service {
 Այժմ հեղինակը կարող է հանգիստ գործածել հավելյալ "[հատկանիշներ](https://en.wikipedia.org/wiki/Trait_(computer_programming))" առանց `make`-ի վերադարձի
 տիպը փոփոխելու՝ հեշտացնելով հետհամատեղելիությունը։
 
-### Variance
+### Վարիատիվություն
 
-Variance arises when generics are combined with subtyping. Variance defines
-how subtyping of the *contained* type relates to subtyping of the
-*container* type. Because Scala has declaration site variance
-annotations, authors of common libraries -- especially collections --
-must be prolific annotators. Such annotations are important for the
-usability of shared code, but misapplication can be dangerous.
+Վարիատիվությունը ի հայտ է գալիս երբ generic-ները օգտագործվում են ենթատիպերի հետ։ Վարիատիվությունը սահմանում է
+թե ինչպես են "պարունակվող" տիպի ենթատիպերը հարաբերվում "պարունակող" տիպի ենթատիպերի հետ։
+Քանի որ Scala-ն տրամադրում է բառեր տիպերը հայտարարելու պահին նաև սահմանել վարիատիվությունը,
+ընդհանուր գրադարանների (հատկապես հավաքածուների գրադարանների) հեղինակները պետք լավ տիրապետեն այդ *լեզվին։ 
+Նման սահմանումները կարևոր են համոգտագործվող կոդի պիտանելիության տեսանկյունից, սակայն նրանց սխալ կիրառությունը
+կարող է վտանգավոր լինել։
 
-Invariants are an advanced but necessary aspect of Scala's typesystem,
-and should be used widely (and correctly) as it aids the application
-of subtyping.
+Ինվարիանտները Scala-ի տիպերի համակարգի ավելի նեղ բայց անհրաժեշտ ասպեկտներից են
+և պետք է լայնորեն (և ճիշտ) կիրառվեն, քանի որ նրանք օգնում են տիպերի ժառանգման գործընթացին։
 
-*Immutable collections should be covariant*. Methods that receive
-the contained type should "downgrade" the collection appropriately:
+*Անփոփոխ հավաքածուները պիտի լինեն կովարիանտ*։ Մեթոդները՝ որոնք ստանում են 
+պարունակվող տիպը պիտի համապատասխան "իջեցնեն" հավաքածուի տիպը․
 
-	trait Collection[+T] {
-	  def add[U >: T](other: U): Collection[U]
-	}
+<pre class="prettyprint"><code>trait Collection[+T] {
+	def add[U >: T](other: U): Collection[U]
+}</code></pre>
 
-*Mutable collections should be invariant*. Covariance
-is typically invalid with mutable collections. Consider
+*Փոփոխվող հավաքածուները պիտի լինեն ինվարիանտ*։ Կովարիանտությունը
+հիմանակնում սխալ է աշխատում փոփոխվող հավաքածուների հետ։ Դիցուք ունենք
 
-	trait HashSet[+T] {
-	  def add[U >: T](item: U)
-	}
+<pre class="prettyprint"><code>trait HashSet[+T] {
+	def add[U >: T](item: U)
+}</code></pre>
 
-.LP and the following type hierarchy:
+.LP և հետևյալ տիպերի and the following type հիերարխիան․
 
-	trait Mammal
-	trait Dog extends Mammal
-	trait Cat extends Mammal
+<pre class="prettyprint"><code>trait Mammal
+trait Dog extends Mammal
+trait Cat extends Mammal
+</code></pre>
 
-.LP If I now have a hash set of dogs
+.LP Եթե հոտևյալ շների <code class="prettyprint">HashSet</code>-ի հետ
 
-	val dogs: HashSet[Dog]
+<pre class="prettyprint"><code>val dogs: HashSet[Dog]</code></pre>
 
-.LP treat it as a set of Mammals and add a cat.
+.LP վարվենք ինչպես կաթնասունների <code class="prettyprint">HashSet</code> և ավելացնենք կատու
 
-	val mammals: HashSet[Mammal] = dogs
-	mammals.add(new Cat{})
+<pre class="prettyprint"><code>val mammals: HashSet[Mammal] = dogs
+mammals.add(new Cat{})</code></pre>
 
-.LP This is no longer a HashSet of dogs!
+.LP այն այլևս շների <code class="prettyprint">HashSet</code> չի լինի!
 
 <!--
   *	when to use abstract type members?
@@ -1758,3 +1758,8 @@ provided much helpful guidance and many excellent suggestions.
 [Scala]: https://www.scala-lang.org/
 [Finagle]: https://github.com/twitter/finagle
 [Util]: https://github.com/twitter/util
+
+<!-- Unknown Words:
+	generic
+	variance
+ -->
