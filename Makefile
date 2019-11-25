@@ -1,6 +1,3 @@
-#MARKDOWN = $(HOME)/Library/Haskell/bin/pandoc  -f markdown -t html
-MARKDOWN = markdown
-
 all: index.html index-ja.html index-ru.html index-cn.html index-hy.html
 
 index.html: header.html.inc effectivescala.html footer.html.inc
@@ -22,7 +19,7 @@ pub: all
 	./publish.sh index.html index-ja.html index-ru.html index-cn.html index-hy.html coll.png
 
 %.html: %.mo
-	cat $< | bash proc.sh | bash toc.sh | bash fmt.sh | $(MARKDOWN) > $@
+	cat $< | bash proc.sh | bash toc.sh | bash fmt.sh | markdown > $@
 
 %.ps: %.pic
 	9 pic $< | 9 troff | 9 tr2post | 9 psfonts > $@
@@ -38,7 +35,7 @@ pub: all
 	9 pic $< | 9 troff | 9 proof
 
 clean:
-	rm *.html *.png
+	rm *.html
 
 .PHONY: all clean pub
 
