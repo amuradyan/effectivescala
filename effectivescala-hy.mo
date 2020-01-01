@@ -348,27 +348,23 @@ package object net {
 
 Նկատեք որ տիպերի հոմանիշները նոր տիպեր չեն - նրանք համարժեք են և քերականապես փոխարինվում են իրենց հիմքում ընկած տիպերի անվանումներով։
 
-### Implicits
+### Implicit-ներ
 
-Implicits are a powerful type system feature, but they should be used
-sparingly. They have complicated resolution rules and make it
-difficult -- by simple lexical examination -- to grasp what is actually
-happening. It's definitely OK to use implicits in the following
-situations:
+Implicit-ները տիպերի համակարգի հզոր հատկություն են, սակայն չպիտի հաճախ օգտագործվեն։
+Նրանք ունեն որոշման բարդ կանոններ և դժվար է հասկանալ թե ինչ է իրականում կատարվում
+կոդը բառացի ուսումնասիրելով։ Վստահ կարելի է նրանցից օգտվել հետևյալ դեպքերում․
 
-* Extending or adding a Scala-style collection
-* Adapting or extending an object ("pimp my library" pattern)
-* Use to *enhance type safety* by providing constraint evidence
-* To provide type evidence (typeclassing)
-* For `Manifest`s
+* Scala-ի ոճով գրադարան ընդլայնելուց կամ ստեղծելուց
+* Օբյեկտ ընդլայնելուց կամ ձևափոխելուց ("pimp my library" կաղապար)
+* Ապացույներ պահանջող տիպային սահմաններ սահմանելուց (թարգ․ նշ․ տես [Generalized type constraints](https://herringtondarkholme.github.io/2014/09/30/scala-operator/))
+* Տիպային ապացույց տրամադրելուց (typeclassing) (թարգ․ նշ․ տես [Typeclass](https://tpolecat.github.io/2013/10/12/typeclass.html))
+* `Manifest`-ների հետ (թարգ․ նշ․ տես [TypeTag](https://docs.scala-lang.org/overviews/reflection/typetags-manifests.html))
 
-If you do find yourself using implicits, always ask yourself if there is
-a way to achieve the same thing without their help.
+Եթե նկատում եք որ օգտագործում եք implicit-ներ, կանգ առեք և հարցրեք ձեզ, չկա արդյոք
+խնդրի լուծման այլ եղանակ։
 
-Do not use implicits to do automatic conversions between similar
-datatypes (for example, converting a list to a stream); these are
-better done explicitly because the types have different semantics, and
-the reader should beware of these implications.
+Մի օգտագործեք implicit-ները նման տիպերի ավտոմատ փոխակերպումների համար (օր․՝ ցուցակները հոսքերի): Նման բաները հարկ է անել բացահայտ զի այդ տիպերը ունեն տարբեր սեմանտիկա և 
+ընթերցողը պետք է տեղյակ լինի այդ մասին։
 
 ## Collections
 
