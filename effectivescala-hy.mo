@@ -207,10 +207,10 @@ API-ները և մի արեք կոդի անտեղի մեկնաբանությու
 այն ձևափոխել այնպես որ այն դառնա ավելի խոսուն։ Գերադասեք
 "Միանշանակ սա աշխատելու է"-ն "Փաստացի սա աշխատում է"-ին (Ներողություն [Hoare](https://en.wikipedia.org/wiki/Tony_Hoare)).
 
-## Հստակ և ընդհանրացնող տիպեր
+## Հստակ և համադասող տիպեր
 
 Տիպերի համակարգի առաջնային խնդիրը ծրագրում սխալներ գտելն է։ Տիպերի համակարգը հնարավոր
-է դարձնում է ստատիկ ստուգման մի եղանակ, թույլ տալով մեզ նշել որոշակի դրույթներ մեր կոդի 
+է դարձնում է ստատիկ ստուգման ևս մի եղանակ, թույլ տալով մեզ նշել որոշակի դրույթներ մեր կոդի 
 մասին, որոնք կոմպիլյատորը կկարողանա ստուգել։ Տիպերի համակարգերը ունեն նաև այլ լավ կողմեր 
 բայց սխալների ստուգումը նրանց գոյության հիմնական պատճառն է։
 
@@ -363,72 +363,52 @@ Implicit-ները տիպերի համակարգի հզոր հատկությու�
 Եթե նկատում եք որ օգտագործում եք implicit-ներ, կանգ առեք և հարցրեք ձեզ, չկա արդյոք
 խնդրի լուծման այլ եղանակ։
 
-Մի օգտագործեք implicit-ները նման տիպերի ավտոմատ փոխակերպումների համար (օր․՝ ցուցակները հոսքերի): Նման բաները հարկ է անել բացահայտ զի այդ տիպերը ունեն տարբեր սեմանտիկա և 
+Մի օգտագործեք implicit-ները նման տիպերի ավտոմատ փոխակերպումների համար (օր․՝ ցուցակները 
+հոսքերի): Նման բաները հարկ է անել բացահայտ զի այդ տիպերը ունեն տարբեր սեմանտիկա և 
 ընթերցողը պետք է տեղյակ լինի այդ մասին։
 
-## Collections
+## Հավաքածուներ
 
-Scala has a very generic, rich, powerful, and composable collections
-library; collections are high level and expose a large set of
-operations. Many collection manipulations and transformations can be
-expressed succinctly and readably, but careless application of these
-features can often lead to the opposite result. Every Scala programmer
-should read the [collections design
-document](https://www.scala-lang.org/docu/files/collections-api/collections.html);
-it provides great insight and motivation for Scala collections
-library.
+Սկալան ունի շատ ընդհանրացված, հարուստ, հղոր և համադրվող հավաքածուների գրադարան․ 
+գրադարանները բարձր մակարդակի են և տրամադրում են բազում գործողություններ։ Նրանց շնորհիվ 
+հավաքածուների հետ շատ մանիպուլյացիաներ և ձևափոխություններ հնարավոր է իրականացնել համառոտ և ընթռնելի սակայն նրանց թեթևամիտ կիրառումը հաճախ հակառակ արդյունք ունենալ։ Ամեն Scala ծրագրավորող պետք է կարդա [collections design
+document](https://www.scala-lang.org/docu/files/collections-api/collections.html)․ 
+սա հանգամանորեն լուսաբանում և հիմնավորում է Scala-ի հավաքածուների գրադարանը։
 
-Always use the simplest collection that meets your needs.
+Միշտ օգտագործեք ձեր պահանջներին բավարարող ամենապարզ հավաքածուն։
 
-### Hierarchy
+### Հիերարխիա
 
-The collections library is large: in addition to an elaborate
-hierarchy -- the root of which being `Traversable[T]` -- there are
-`immutable` and `mutable` variants for most collections. Whatever
-the complexity, the following diagram contains the important 
-distinctions for both `immutable` and `mutable` hierarchies
+Հավաքածուների գրադարանը մեծ է։ Բացի բարդ հիերարխիայից, որի հիմքը `Traversable[T]`-ն է,
+կան հավաքածուների չփոփոխվող(`immutable`) և փոփոխվող(`mutable`) տարբերակներ։ Ստորև բերված սխեման այնուամենայնիվ բնութագրում է երկու հիերարխիաների կառուցվածքը։
 
 <img src="coll.png" style="margin-left: 3em;" />
 
-.LP <code>Iterable[T]</code> is any collection that may be iterated over, they provide an <code>iterator</code> method (and thus <code>foreach</code>). <code>Seq[T]</code>s are collections that are <em>ordered</em>, <code>Set[T]</code>s are mathematical sets (unordered collections of unique items), and <code>Map[T]</code>s are associative arrays, also unordered.
+.LP <code class="prettyprint">Iterable[T]</code>-ն ցանկացած հավաքածու է որի վրայով հնարավոր է "քայլել" (iterated)։ Այդպիսինները տրամադրում են իտերատոր, հետևաբար նաև <code class="prettyprint">foreach</code>). <code class="prettyprint">Seq[T]</code>-ները <em>կարգավորված</em> հավաքածուներ են, <code class="prettyprint">Set[T]</code>-ները մաթեմաթիկական բազմություններ են (չկրկնվող էլեմենտների չկարգավորված հավաքածուներ), իսկ <code class="prettyprint">Map[T]</code>-ները ասոցիատիվ զանգվածներ են, նույնպես չկարգավորված։
 
-### Use
+### Կիրառությունը
 
-*Prefer using immutable collections.* They are applicable in most
-circumstances, and make programs easier to reason about since they are
-referentially transparent and are thus also threadsafe by default.
+*Գերադասեք չփոփոխվող հավաքածուները։* Նրանք կիրառելի են դեպքերի մեծամասնությունում և հեշտացնում են ծրագրի մասին դատողություններ անելը, որովհետև նույնն են անկաղ նրանց հղման կետից, (referentially transparent) և հետևաբար լռելյայն անվտանգ հոսքերի պարագայում (threadsafe):
 
-*Use the `mutable` namespace explicitly.* Don't import
-`scala.collection.mutable._` and refer to `Set`, instead
+*Բացահատ օգտագործեք `mutable` անվանացանկը:* Մի ներմուծեք 
+`scala.collection.mutable._` հղվեք անմիջապես `Set`-ին։
 
-	import scala.collection.mutable
+<pre class="prettyprint"><code>	import scala.collection.mutable
 	val set = mutable.Set()
+</code></pre>
 
-.LP makes it clear that the mutable variant is being used.
+.LP Սա բացահայտ է դարձնում որ օգտագործվում է փոփոխվող տարբերակը։
 
-*Use the default constructor for the collection type.* Whenever you
-need an ordered sequence (and not necessarily linked list semantics),
-use the `Seq()` constructor, and so on:
+*Օգտագործեք հավաքածուի դասի լռեյայն կոնստրուկտորը։* Երբ կարգավորված շարքի կարիք ունեք, (նույնիսկ եթե ոչ կապակցված), օգտագործեք `Seq()` կոնստրուկտորը, և այլն:
 
-	val seq = Seq(1, 2, 3)
+<pre class="prettyprint"><code>	val seq = Seq(1, 2, 3)
 	val set = Set(1, 2, 3)
 	val map = Map(1 -> "one", 2 -> "two", 3 -> "three")
+</code></pre>
 
-.LP This style separates the semantics of the collection from its implementation, letting the collections library use the most appropriate type: you need a <code>Map</code>, not necessarily a Red-Black Tree. Furthermore, these default constructors will often use specialized representations: for example, <code>Map()</code> will use a 3-field object for maps with 3 keys.
+.LP Այս ոճը անջատում է հավաքածուի սեմանտիկան իրագործումից, թույլ տալով գրադարանին ընտրել ամենահարմարը․ ձեզ հարկավոր է <code class="prettyprint">Map</code>, ոչ պարտադիռ Red-Black Tree. Ավելին, այս լռելյայն կոնստրուկտորները հաճախ օգտագործում են հատուկ հարմարեցված ներկայացումներ․ օրինակ, <code class="prettyprint">Map()</code> օգտագործում է երեք դաշտ պարունակող օբյեկտ, երեք բանալի պարունակող <code class="prettyprint">Map</code>-երի համար։
 
-The corollary to the above is: in your own methods and constructors, *receive the most generic collection
-type appropriate*. This typically boils down to one of the above:
-`Iterable`, `Seq`, `Set`, or `Map`. If your method needs a sequence,
-use `Seq[T]`, not `List[T]`. (A word of caution: the *default* 
-`Traversable`, `Iterable` and `Seq` types in scope – defined in 
-`scala.package` – are the `scala.collection` versions, as opposed to 
-`Map` and `Set` – defined in `Predef.scala` – which are the `scala.collection.immutable` 
-versions. This means that, for example, the default `Seq` type can 
-be both the immutable *and* mutable implementations. Thus, if your 
-method relies on a collection parameter being immutable, and you are 
-using `Traversable`, `Iterable` or `Seq`, you *must* specifically 
-require/import the immutable variant, otherwise someone *may* pass 
-you the mutable version.)
+Եզրակացությունը հետևյալն է։ ձեր մեթոդներում և կոնստրուկտորներում *ընդունեք հավաքածուի հնարավոր ամենաընդհանոըր տիպը*. Այն հիմնականում սրանցից մեկն է․ `Iterable`, `Seq`, `Set`, կամ `Map`. Եթե ձեր մեթոդը կարիք ունի հաջորդականության, օգտագործեք `Seq[T]`, ոչ `List[T]`: (Նախազգուշացում․ `Traversable`, `Iterable` և `Seq` տիպերը, որոնք սահմանված են `scala.package`-ում, `scala.collection`-ից են, այսինքն՝ փոփոխվող տիպի են, իսկ `Map`-ը և `Set`-ը, որոնք սահմանված են `Predef.scala`-ում, `scala.collection.immutable`-ից են, այսինքն՝ չփոփոխվող են։. Սա նշանակում է, որ օրինակ լռելյայն `Seq` տիպը կարող է լինել թե փոփոխվող, թե չփոփոխվող։ Հետևաբար եթե ձեր մեթոդը ակնկալում է չփոփոխվող հավաքածու և դուք օգտագործում եք `Traversable`, `Iterable` կամ `Seq`, դուք *պիտի* հատուկ պահանջեք կամ ներմուծեք չփոփոխվող տարբերակը։ Հակառակ դեպքում որևէ մեկը *կարող* է փոխանցել փոփոխվող տարբերակը։)
 
 <!--
 something about buffers for construction?
