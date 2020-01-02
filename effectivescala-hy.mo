@@ -386,47 +386,39 @@ document](https://www.scala-lang.org/docu/files/collections-api/collections.html
 
 .LP <code class="prettyprint">Iterable[T]</code>-ն ցանկացած հավաքածու է որի վրայով հնարավոր է "քայլել" (iterated)։ Այդպիսինները տրամադրում են իտերատոր, հետևաբար նաև <code class="prettyprint">foreach</code>). <code class="prettyprint">Seq[T]</code>-ները <em>կարգավորված</em> հավաքածուներ են, <code class="prettyprint">Set[T]</code>-ները մաթեմաթիկական բազմություններ են (չկրկնվող էլեմենտների չկարգավորված հավաքածուներ), իսկ <code class="prettyprint">Map[T]</code>-ները ասոցիատիվ զանգվածներ են, նույնպես չկարգավորված։
 
-### Կիրառությունը
+### Կիրառություն
 
 *Գերադասեք չփոփոխվող հավաքածուները։* Նրանք կիրառելի են դեպքերի մեծամասնությունում և հեշտացնում են ծրագրի մասին դատողություններ անելը, որովհետև նույնն են անկաղ նրանց հղման կետից, (referentially transparent) և հետևաբար լռելյայն անվտանգ հոսքերի պարագայում (threadsafe):
 
-*Բացահատ օգտագործեք `mutable` անվանացանկը:* Մի ներմուծեք 
-`scala.collection.mutable._` հղվեք անմիջապես `Set`-ին։
+*Բացահատ օգտագործեք `mutable` անվանացանկի աղտոտումով, խմբավորեք արտահայտությունները -ին։
 
-<pre class="prettyprint"><code>	import scala.collection.mutable
+<pre -ովclass="prettyprint"><code>	import scala.collection.mutable
 	val set = mutable.Set()
 </code></pre>
 
 .LP Սա բացահայտ է դարձնում որ օգտագործվում է փոփոխվող տարբերակը։
 
-*Օգտագործեք հավաքածուի դասի լռեյայն կոնստրուկտորը։* Երբ կարգավորված շարքի կարիք ունեք, (նույնիսկ եթե ոչ կապակցված), օգտագործեք `Seq()` կոնստրուկտորը, և այլն:
+*Օգտագործեք հավաքածուի դասի լռեյայն կոնստրուկտորը։* Երբ կարգավորված շարքի կարիք ունեք, (նույնիկ եթե ոչ կապակցված), օգտագործեք `Seq()` կոնստրուկտորը, և այլն:
 
 <pre class="prettyprint"><code>	val seq = Seq(1, 2, 3)
 	val set = Set(1, 2, 3)
 	val map = Map(1 -> "one", 2 -> "two", 3 -> "three")
 </code></pre>
 
-.LP Այս ոճը անջատում է հավաքածուի սեմանտիկան իրագործումից, թույլ տալով գրադարանին ընտրել ամենահարմարը․ ձեզ հարկավոր է <code class="prettyprint">Map</code>, ոչ պարտադիռ Red-Black Tree. Ավելին, այս լռելյայն կոնստրուկտորները հաճախ օգտագործում են հատուկ հարմարեցված ներկայացումներ․ օրինակ, <code class="prettyprint">Map()</code> օգտագործում է երեք դաշտ պարունակող օբյեկտ, երեք բանալի պարունակող <code class="prettyprint">Map</code>-երի համար։
+.LP Այս ոճը անջատում է հավաքածուի սեմանտիկան իրագործումից, թույլ տալով գրադարանին ընտրել ամենահարմարը․ ձեզ հարկավոր է <code class="prettyprint">Map</code>, ոչ պարտադիր Red-Black Tree. Ավելին, այս լռելյայն կոնստրուկտորները հաճախ օգտագործում են հատուկ հարմարեցված ներկայացումներ․ օրինակ, <code class="prettyprint">Map()</code>-ը օգտագործում է երեք դաշտ պարունակող օբյեկտ, երեք բանալի պարունակող <code class="prettyprint">Map</code>-երի համար։
 
-Եզրակացությունը հետևյալն է։ ձեր մեթոդներում և կոնստրուկտորներում *ընդունեք հավաքածուի հնարավոր ամենաընդհանոըր տիպը*. Այն հիմնականում սրանցից մեկն է․ `Iterable`, `Seq`, `Set`, կամ `Map`. Եթե ձեր մեթոդը կարիք ունի հաջորդականության, օգտագործեք `Seq[T]`, ոչ `List[T]`: (Նախազգուշացում․ `Traversable`, `Iterable` և `Seq` տիպերը, որոնք սահմանված են `scala.package`-ում, `scala.collection`-ից են, այսինքն՝ փոփոխվող տիպի են, իսկ `Map`-ը և `Set`-ը, որոնք սահմանված են `Predef.scala`-ում, `scala.collection.immutable`-ից են, այսինքն՝ չփոփոխվող են։. Սա նշանակում է, որ օրինակ լռելյայն `Seq` տիպը կարող է լինել թե փոփոխվող, թե չփոփոխվող։ Հետևաբար եթե ձեր մեթոդը ակնկալում է չփոփոխվող հավաքածու և դուք օգտագործում եք `Traversable`, `Iterable` կամ `Seq`, դուք *պիտի* հատուկ պահանջեք կամ ներմուծեք չփոփոխվող տարբերակը։ Հակառակ դեպքում որևէ մեկը *կարող* է փոխանցել փոփոխվող տարբերակը։)
+Եզրակացությունը հետևյալն է։ ձեր մեթոդներում և կոնստրուկտորներում *ընդունեք հավաքածուի հնարավոր ամենաընդհանուր տիպը*. Այն հիմնականում սրանցից մեկն է․ `Iterable`, `Seq`, `Set`, կամ `Map`։ Եթե ձեր մեթոդը կարիք ունի հաջորդականության, օգտագործեք `Seq[T]`, ոչ `List[T]`: (Նախազգուշացում․ `Traversable`, `Iterable` և `Seq` տիպերը, որոնք սահմանված են `scala.package`-ում, `scala.collection`-ից են, այսինքն՝ փոփոխվող տիպի են, իսկ `Map`-ը և `Set`-ը, որոնք սահմանված են `Predef.scala`-ում, `scala.collection.immutable`-ից են, այսինքն՝ չփոփոխվող են։. Սա նշանակում է, որ օրինակ լռելյայն `Seq` տիպը կարող է լինել թե փոփոխվող, թե չփոփոխվող։ Հետևաբար եթե ձեր մեթոդը ակնկալում է չփոփոխվող հավաքածու և դուք օգտագործում եք `Traversable`, `Iterable` կամ `Seq`, դուք *պիտի* հատուկ պահանջեք կամ ներմուծեք չփոփոխվող տարբերակը։ Հակառակ դեպքում որևէ մեկը *կարող* է փոխանցել փոփոխվող տարբերակը։)
 
 <!--
 something about buffers for construction?
 anything about streams?
 -->
 
-### Style
+### Ոճ
 
-Functional programming encourages pipelining transformations of an
-immutable collection to shape it to its desired result. This often
-leads to very succinct solutions, but can also be confusing to the
-reader -- it is often difficult to discern the author's intent, or keep
-track of all the intermediate results that are only implied. For example,
-let's say we wanted to aggregate votes for different programming 
-languages from a sequence of (language, num votes), showing them
-in order of most votes to least, we could write:
+Ֆունցիոնալ ծրագրավորումը խրախուսում է իրար հաջորդող հաղորդակցված ձևափոխությունների կիրառումը չփոփոխվող հավաքածուների ձևավորման համար։ Սա հաճախ բերում է շատ համառոտ լուծումների, բայց և կարող է շփոթեցնել ընթերցողին երբ դժվար է հետևել հեղինակի մտքին կամ հաշվի առնել բոլոր ենթադրյալ միջանկյալ արդյունքները։ Օրինակ երբ մենք ցանկանում ենք խմբավորել տարբեր ծրագրավորման լեզուների օգտին քվեները (*լեզու*, *քվեներ*) հաջորդականությունից, դասավորելով նրանց ըստ քվեների նվազման։ Մենք կարող ենք գրել․
 	
-	val votes = Seq(("scala", 1), ("java", 4), ("scala", 10), ("scala", 1), ("python", 10))
+<pre class="prettyprint"><code>	val votes = Seq(("scala", 1), ("java", 4), ("scala", 10), ("scala", 1), ("python", 10))
 	val orderedVotes = votes
 	  .groupBy(_._1)
 	  .map { case (which, counts) => 
@@ -434,10 +426,11 @@ in order of most votes to least, we could write:
 	  }.toSeq
 	  .sortBy(_._2)
 	  .reverse
+</code></pre>
 
-.LP this is both succinct and correct, but nearly every reader will have a difficult time recovering the original intent of the author. A strategy that often serves to clarify is to <em>name intermediate results and parameters</em>:
+.LP Սա և համառոտ է և ճիշտ, սակայն համարյա ամեն ընթերցող չարչարվելու է հեղինակի բուն միտքը վերակառուցելիս։ Նման խնդիրները լուծվում են <em>հայտարարելով միջանկյալ արդյունքներն ու պարամետրերը</em>:
 
-	val votesByLang = votes groupBy { case (lang, _) => lang }
+<pre class="prettyprint"><code>	val votesByLang = votes groupBy { case (lang, _) => lang }
 	val sumByLang = votesByLang map { case (lang, counts) =>
 	  val countsOnly = counts map { case (_, count) => count }
 	  (lang, countsOnly.sum)
@@ -445,14 +438,15 @@ in order of most votes to least, we could write:
 	val orderedVotes = sumByLang.toSeq
 	  .sortBy { case (_, count) => count }
 	  .reverse
+</code></pre>
 
-.LP the code is nearly as succinct, but much more clearly expresses both the transformations take place (by naming intermediate values), and the structure of the data being operated on (by naming parameters). If you worry about namespace pollution with this style, group expressions with <code>{}</code>:
+.LP Կոդը նամարյա նույնքան համառոտ է բայց ավելի լավ է արտահայտում երկու ձևափոխությունները (հայտարարված միջանկյալ արդյունքներ) և ձևափոխվող տվյալի կառուցվածքը (հայտարարված պարամետրեր)։ Եթե անհանգստացած եք անվանացանկի աղտոտումով, խմբավորեք արտահայտությունները <code>{}</code>-ով:
 
-	val orderedVotes = {
+<pre class="prettyprint"><code>	val orderedVotes = {
 	  val votesByLang = ...
 	  ...
 	}
-
+</code></pre>
 
 ### Performance
 
