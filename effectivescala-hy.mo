@@ -467,9 +467,9 @@ Scala-ն թաքցնում է կաղսապարման/ապակաղապարման(b
 
 Արտադրողականության օպտիմիզացիայի առաջին կանոնը հասկանալն է, թե *ինչու* է ձեր 
 ծրագիրը դանդաղ։ Մի գործեք առանց հստակ փաստերի. չափեք (profile) ձեր ծրագիրը նախքան 
-օպտիմիզացիան սկսելը (լավ չափագոծիք (profiler) է [[Yourkit](https://www.yourkit.com/)-ը])։
+օպտիմիզացիան սկսելը (լավ չափագոծիք (profiler) է [Yourkit](https://www.yourkit.com/)-ը)։
 Նախ կենտրոնացեք ցիկլերի և մեծ տվյալների կառույցների վրա։ Չափազանց կենտրոնացումը 
-օպտիմիզացիայի վրա սովորաբար ապարդյուն ջանք է։ Հիշեք Կնուտի սկզբունքը․ "Վաղաժամ 
+օպտիմիզացիայի վրա սովորաբար ապարդյուն ջանք է։ Հիշեք Դոնալդ Կնուտի սկզբունքը․ "Վաղաժամ 
 օպտիմիզացիան ամեն չարիքների հիմքն է"։
 
 <!-- 
@@ -482,17 +482,17 @@ referentially transparent
 հավաքածուն տրամադրում է զանգվածների referentially transparent միջերես) և բուֆերներ 
 հաջորդականությունների անմիջական կառուցման փոխարեն երբ արտադրողականությունը կարևոր է։
 
-### Java Collections
+### Java հավաքածուներ
 
-Use `scala.collection.JavaConverters` to interoperate with Java collections.
-These are a set of implicits that add `asJava` and `asScala` conversion
-methods. The use of these ensures that such conversions are explicit, aiding
-the reader:
+Օգտագործեք `scala.collection.JavaConverters` Java-ի հավաքածուների հետ աշխատելու համար։
+Սրանք implicit-ներ են որոնք ավելացնում են `asJava` և `asScala` վերափոխման մեթոդմերը, 
+որոնք բացահայտ են դարձնում վերափոխումները և օգնում ընթերցողին։
 
-	import scala.collection.JavaConverters._
+<pre class="prettyprint"><code>	import scala.collection.JavaConverters._
 	
 	val list: java.util.List[Int] = Seq(1,2,3,4).asJava
 	val buffer: scala.collection.mutable.Buffer[Int] = list.asScala
+</code></pre>
 
 ## Concurrency
 
