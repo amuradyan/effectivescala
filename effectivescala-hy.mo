@@ -448,38 +448,39 @@ anything about streams?
 	}
 </code></pre>
 
-### Performance
+### Արտադրողականություն
 
-High level collections libraries (as with higher level constructs
-generally) make reasoning about performance more difficult: the
-further you stray from instructing the computer directly -- in other
-words, imperative style -- the harder it is to predict the exact
-performance implications of a piece of code. Reasoning about
-correctness however, is typically easier; readability is also
-enhanced. With Scala the picture is further complicated by the Java
-runtime; Scala hides boxing/unboxing operations from you, which can
-incur severe performance or space penalties.
+Բարձր մակարդակի հավաքածուների գրադարանները (և բարձր մակարդակի 
+կառույցներն ընդհանրապես) բարդացնում են արտադրողականության մասին 
+դատողությունները․ որքան հեռանում ենք "ամնիջապես" համակրգչին հրահանգներ 
+տալուց, այն է՝ իմպերատիվ ոճից, այնքան ավելի բարդ է լինում հստակ 
+գնահատել կոդի արտադրողականությունը։ Սակայն ճշտության մասին դատելը 
+սովորաբար հեշտանում է, շահում է նաև ընթեռնելիությունը։ Scala-ի դեպքում 
+ամենն ավելի է բարդանում, հաշվի առնելով հիմքում ընկած Java-ի միջավայրը։
+Scala-ն թաքցնում է կաղսապարման/ապակաղապարման(boxing/unboxing) 
+գործողությունները, որոնք կարող են առաջացնել արտադրողականության զգալի տույժեր։
 
-Before focusing on low level details, make sure you are using a
-collection appropriate for your use. Make sure your datastructure
-doesn't have unexpected asymptotic complexity. The complexities of the
-various Scala collections are described
-[here](https://www.scala-lang.org/docu/files/collections-api/collections_40.html).
+Նախքան ցածր մակարդակի մանրամասներին անդրադառնալը, համոզվեք որ օգտվում եք ձեր 
+խնդրին համապատասխան հավաքածուից։ Համոզվեք որ ձեր ընտրած տվյասլների կառույցը չունի
+անսպասելի ասիմպտոտիկ բարդություն։ Scala-իտարբեր հավաքածուների բարդությունները նկարագրված 
+են [այստեղ](https://www.scala-lang.org/docu/files/collections-api/collections_40.html).
 
-The first rule of optimizing for performance is to understand *why*
-your application is slow. Do not operate without data;
-profile^[[Yourkit](https://www.yourkit.com/) is a good profiler] your
-application before proceeding. Focus first on hot loops and large data
-structures. Excessive focus on optimization is typically wasted
-effort. Remember Knuth's maxim: "Premature optimisation is the root of
-all evil."
+Արտադրողականության օպտիմիզացիայի առաջին կանոնը հասկանալն է, թե *ինչու* է ձեր 
+ծրագիրը դանդաղ։ Մի գործեք առանց հստակ փաստերի. չափեք (profile) ձեր ծրագիրը նախքան 
+օպտիմիզացիան սկսելը (լավ չափագոծիք (profiler) է [[Yourkit](https://www.yourkit.com/)-ը])։
+Նախ կենտրոնացեք ցիկլերի և մեծ տվյալների կառույցների վրա։ Չափազանց կենտրոնացումը 
+օպտիմիզացիայի վրա սովորաբար ապարդյուն ջանք է։ Հիշեք Կնուտի սկզբունքը․ "Վաղաժամ 
+օպտիմիզացիան ամեն չարիքների հիմքն է"։
 
-It is often appropriate to use lower level collections in situations
-that require better performance or space efficiency. Use arrays
-instead of lists for large sequences (the immutable `Vector`
-collections provides a referentially transparent interface to arrays);
-and use buffers instead of direct sequence construction when
-performance matters.
+<!-- 
+referentially transparent 
+ -->
+
+Հաճախ տեղին է օգտագործել ցածր մակարդակի հավաքածուներ այն դեպքերում, երբ հարկավոր է 
+բարձր արտադրողականություն կամ հիշողության էֆեկտիվ օգտագործում։ Օգտագործեք զանգվածներ 
+ցուցակների փոխարեն երկար հաջորդականությունների դեպքում (չփոփոխվող `Vector`
+հավաքածուն տրամադրում է զանգվածների referentially transparent միջերես) և բուֆերներ 
+հաջորդականությունների անմիջական կառուցման փոխարեն երբ արտադրողականությունը կարևոր է։
 
 ### Java Collections
 
