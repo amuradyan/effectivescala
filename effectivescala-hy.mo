@@ -494,36 +494,18 @@ referentially transparent
 	val buffer: scala.collection.mutable.Buffer[Int] = list.asScala
 </code></pre>
 
-## Concurrency
+## Հերթագայություն (Concurrency)
 
-Modern services are highly concurrent -- it is common for servers to
-coordinate 10s-100s of thousands of simultaneous operations -- and
-handling the implied complexity is a central theme in authoring robust
-systems software.
+Ժամանակակից վեբ ծառայությունները բավականին ծանրաբեռնված են -- սեռվեռնեռրի համար սովորական
+է դարձել տասնյակ կամ նույնիսկ հարյուր հազարավոր միաժամանակ հարցումներ համակարգելը -- և դրա հետևանքների կառավարումը կայուն համակարգ ստանալու գրավականներից մեկն է։
 
-*Threads* provide a means of expressing concurrency: they give you
-independent, heap-sharing execution contexts that are scheduled by the
-operating system. However, thread creation is expensive in Java and is
-a resource that must be managed, typically with the use of pools. This
-creates additional complexity for the programmer, and also a high
-degree of coupling: it's difficult to divorce application logic from
-their use of the underlying resources.
+*Հոսքերը* հերթագայությունը արտահայտելու միջոց են։ Նրանք ապահովում են անկախ, հիփից (տես. [heap](https://en.wikipedia.org/wiki/Memory_management#HEAP)) օգտվող կատարման կոնտեքստներ, որոնց գործարկումը պլանավորվում է օպերացիոն համակարգի կողմից։ Հոսքեր ստեղծելը, սակայն, թանկ է Java-ի դեպքում և նրանք անմիջական կառավարման կարիք ունեն, սովորաբար պարկերի (pool) միջոցով։ Սա առաջացնում է հավելյալ բարդություններ ծրագրավորողի համար և խթանում է սերտաճը, քանի որ դժվար է բաժանել ծրագրի տրամաբանությունը՝ օգտագործվող ռեսուրսներից։
 
-This complexity is especially apparent when creating services that
-have a high degree of fan-out: each incoming request results in a
-multitude of requests to yet another tier of systems. In these
-systems, thread pools must be managed so that they are balanced
-according to the ratios of requests in each tier: mismanagement of one
-thread pool bleeds into another. 
+Կառավարման բարդությունը ավելի ակներև է ելքային հարցումների բարձր աստիճան ունեցող համակարգերի դեպքում, երբ ամեն մուտքային հարցում վերածվում է մի քանի ելքային հարցուման համակարգի տարբեր շերտերին։ Նման համակարգերում հոսքերի պարկերը պետք է կառավարվեն ըստ շերտերում հարցումների քանակների հարաբերության․ պարկերից մեկի վատ կառավարումը արտահայտվելու է մնացած պարկերում։
 
-Robust systems must also consider timeouts and cancellation, both of
-which require the introduction of yet more "control" threads,
-complicating the problem further. Note that if threads were cheap
-these problems would be diminished: no pooling would be required,
-timed out threads could be discarded, and no additional resource
-management would be required.
+Կայուն համակարգերը նաև հաշվի են առնում լռությունն ու չեղարկումը, որոնցից յուրաքանչյուրը պահանջում են հավելյալ "կառավարող" հեսքեր, կառավարման խնդիրն ավելի խորացնելով։ Հարկ է նշել, որ նման կառավարման խնդիր ընդհանարապես չէր լինի եթե հոսքերը թանկ ռեսուրս չլինեին․ հարկավոր չէին լինի հոսքերի պարկեր, իսկ չեղարկված կամ լուռ ռեսուրսները ուղղակի կանտեսվեին։ 
 
-Thus resource management compromises modularity.
+Այսպիսով՝ ռեսուրսների կառավարումը վնասում է մոդուլյարությանը
 
 ### Futures
 
