@@ -392,17 +392,17 @@ document](https://www.scala-lang.org/docu/files/collections-api/collections.html
 
 *Բացահատ օգտագործեք `mutable` անվանացանկի աղտոտումով, խմբավորեք արտահայտությունները -ին։
 
-<pre -ովclass="prettyprint"><code>	import scala.collection.mutable
-	val set = mutable.Set()
+<pre -ովclass="prettyprint"><code>import scala.collection.mutable
+val set = mutable.Set()
 </code></pre>
 
 .LP Սա բացահայտ է դարձնում որ օգտագործվում է փոփոխվող տարբերակը։
 
 *Օգտագործեք հավաքածուի դասի լռեյայն կոնստրուկտորը։* Երբ կարգավորված շարքի կարիք ունեք, (նույնիկ եթե ոչ կապակցված), օգտագործեք `Seq()` կոնստրուկտորը, և այլն:
 
-<pre class="prettyprint"><code>	val seq = Seq(1, 2, 3)
-	val set = Set(1, 2, 3)
-	val map = Map(1 -> "one", 2 -> "two", 3 -> "three")
+<pre class="prettyprint"><code>val seq = Seq(1, 2, 3)
+val set = Set(1, 2, 3)
+val map = Map(1 -> "one", 2 -> "two", 3 -> "three")
 </code></pre>
 
 .LP Այս ոճը անջատում է հավաքածուի սեմանտիկան իրագործումից, թույլ տալով գրադարանին ընտրել ամենահարմարը․ ձեզ հարկավոր է <code class="prettyprint">Map</code>, ոչ պարտադիր Red-Black Tree. Ավելին, այս լռելյայն կոնստրուկտորները հաճախ օգտագործում են հատուկ հարմարեցված ներկայացումներ․ օրինակ, <code class="prettyprint">Map()</code>-ը օգտագործում է երեք դաշտ պարունակող օբյեկտ, երեք բանալի պարունակող <code class="prettyprint">Map</code>-երի համար։
@@ -418,34 +418,34 @@ anything about streams?
 
 Ֆունցիոնալ ծրագրավորումը խրախուսում է իրար հաջորդող հաղորդակցված ձևափոխությունների կիրառումը չփոփոխվող հավաքածուների ձևավորման համար։ Սա հաճախ բերում է շատ համառոտ լուծումների, բայց և կարող է շփոթեցնել ընթերցողին երբ դժվար է հետևել հեղինակի մտքին կամ հաշվի առնել բոլոր ենթադրյալ միջանկյալ արդյունքները։ Օրինակ երբ մենք ցանկանում ենք խմբավորել տարբեր ծրագրավորման լեզուների օգտին քվեները (*լեզու*, *քվեներ*) հաջորդականությունից, դասավորելով նրանց ըստ քվեների նվազման։ Մենք կարող ենք գրել․
 	
-<pre class="prettyprint"><code>	val votes = Seq(("scala", 1), ("java", 4), ("scala", 10), ("scala", 1), ("python", 10))
-	val orderedVotes = votes
-	  .groupBy(_._1)
-	  .map { case (which, counts) => 
-	    (which, counts.foldLeft(0)(_ + _._2))
-	  }.toSeq
-	  .sortBy(_._2)
-	  .reverse
+<pre class="prettyprint"><code>val votes = Seq(("scala", 1), ("java", 4), ("scala", 10), ("scala", 1), ("python", 10))
+val orderedVotes = votes
+	.groupBy(_._1)
+	.map { case (which, counts) => 
+		(which, counts.foldLeft(0)(_ + _._2))
+	}.toSeq
+	.sortBy(_._2)
+	.reverse
 </code></pre>
 
 .LP Սա և համառոտ է և ճիշտ, սակայն համարյա ամեն ընթերցող չարչարվելու է հեղինակի բուն միտքը վերակառուցելիս։ Նման խնդիրները լուծվում են <em>հայտարարելով միջանկյալ արդյունքներն ու պարամետրերը</em>:
 
-<pre class="prettyprint"><code>	val votesByLang = votes groupBy { case (lang, _) => lang }
-	val sumByLang = votesByLang map { case (lang, counts) =>
-	  val countsOnly = counts map { case (_, count) => count }
-	  (lang, countsOnly.sum)
-	}
-	val orderedVotes = sumByLang.toSeq
-	  .sortBy { case (_, count) => count }
-	  .reverse
+<pre class="prettyprint"><code>val votesByLang = votes groupBy { case (lang, _) => lang }
+val sumByLang = votesByLang map { case (lang, counts) =>
+	val countsOnly = counts map { case (_, count) => count }
+	(lang, countsOnly.sum)
+}
+val orderedVotes = sumByLang.toSeq
+	.sortBy { case (_, count) => count }
+	.reverse
 </code></pre>
 
 .LP Կոդը նամարյա նույնքան համառոտ է բայց ավելի լավ է արտահայտում երկու ձևափոխությունները (հայտարարված միջանկյալ արդյունքներ) և ձևափոխվող տվյալի կառուցվածքը (հայտարարված պարամետրեր)։ Եթե անհանգստացած եք անվանացանկի աղտոտումով, խմբավորեք արտահայտությունները <code>{}</code>-ով:
 
-<pre class="prettyprint"><code>	val orderedVotes = {
-	  val votesByLang = ...
-	  ...
-	}
+<pre class="prettyprint"><code>val orderedVotes = {
+	val votesByLang = ...
+	...
+}
 </code></pre>
 
 ### Արտադրողականություն
@@ -476,22 +476,18 @@ Scala-ն թաքցնում է կաղսապարման/ապակաղապարման(b
 referentially transparent 
  -->
 
-Հաճախ տեղին է օգտագործել ցածր մակարդակի հավաքածուներ այն դեպքերում, երբ հարկավոր է 
-բարձր արտադրողականություն կամ հիշողության էֆեկտիվ օգտագործում։ Օգտագործեք զանգվածներ 
-ցուցակների փոխարեն երկար հաջորդականությունների դեպքում (չփոփոխվող `Vector`
-հավաքածուն տրամադրում է զանգվածների referentially transparent միջերես) և բուֆերներ 
-հաջորդականությունների անմիջական կառուցման փոխարեն երբ արտադրողականությունը կարևոր է։
+Հաճախ տեղին է օգտագործել ցածր մակարդակի հավաքածուներ այն դեպքերում, երբ հարկավոր է բարձր արտադրողականություն կամ հիշողության էֆեկտիվ օգտագործում։ Օգտագործեք զանգվածներ ցուցակների փոխարեն երկար հաջորդականությունների դեպքում (չփոփոխվող `Vector`
+հավաքածուն տրամադրում է զանգվածների referentially transparent միջերես) և բուֆերներ հաջորդականությունների անմիջական կառուցման փոխարեն երբ արտադրողականությունը կարևոր է։
 
 ### Java հավաքածուներ
 
 Օգտագործեք `scala.collection.JavaConverters` Java-ի հավաքածուների հետ աշխատելու համար։
-Սրանք implicit-ներ են որոնք ավելացնում են `asJava` և `asScala` վերափոխման մեթոդմերը, 
-որոնք բացահայտ են դարձնում վերափոխումները և օգնում ընթերցողին։
+Սրանք implicit-ներ են որոնք ավելացնում են `asJava` և `asScala` վերափոխման մեթոդմերը, որոնք բացահայտ են դարձնում վերափոխումները և օգնում ընթերցողին։
 
-<pre class="prettyprint"><code>	import scala.collection.JavaConverters._
-	
-	val list: java.util.List[Int] = Seq(1,2,3,4).asJava
-	val buffer: scala.collection.mutable.Buffer[Int] = list.asScala
+<pre class="prettyprint"><code>import scala.collection.JavaConverters._
+
+val list: java.util.List[Int] = Seq(1,2,3,4).asJava
+val buffer: scala.collection.mutable.Buffer[Int] = list.asScala
 </code></pre>
 
 ## Հերթագայություն (Concurrency)
