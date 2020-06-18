@@ -507,95 +507,68 @@ referentially transparent
 
 Այսպիսով՝ ռեսուրսների կառավարումը վնասում է մոդուլյարությանը
 
-### Futures
+### Future-ներ
 
-Use Futures to manage concurrency. They decouple
-concurrent operations from resource management: for example, [Finagle][Finagle]
-multiplexes concurrent operations onto few threads in an efficient
-manner. Scala has lightweight closure literal syntax, so Futures
-introduce little syntactic overhead, and they become second nature to
-most programmers.
+Հերթագայությունը կառավարելու համար օգտագործեք `Future`-ներ։ Նրանք օգնում են անջատել գործողությունների հերթագայման տրամաբանությունը ռեսուրսների կառավարումից․ օր․՝ [Finagle][Finagle]-ը էֆեկտիվորեն բաշխում է իրարից անկախ գործողությունները մի քանի հոսքերի վրա. Scala-ն ունի անանուն ֆունկցիաների հայտարարման հարմար գրելաձև, այդ պատճառով `Futures`-ները քերականապես շատ չեն բարդեցնում կոդը և դառնում են շատ ծևագրավորողների երկրորդ ես-ը։
 
-Futures allow the programmer to express concurrent computation in a
-declarative style, are composable, and have principled handling of
-failure. These qualities have convinced us that they are especially
-well suited for use in functional programming languages, where this is
-the encouraged style.
+`Future`-ները թույլ են տալիս ծրագրավորողին արտահայտել հերթագայությունը դեկլարատիվ ոճով և շղթայել այդ քայլերը։ Նրանք նաև տրամադրում են խափանման դեպքերի մեկնաբանման հստակ ձև։ Այս հատկությունները մեզ ապացուցեցին, որ նրանք հարմար են հատկապես ֆունկցիոնալ ծրագրավորման լեզուներում, ուր նման մոտեցումները խրախուսվող ոճի մաս են։
 
-*Prefer transforming futures over creating your own.* Future
-transformations ensure that failures are propagated, that
-cancellations are signalled, and free the programmer from thinking
-about the implications of the Java memory model. Even a careful
-programmer might write the following to issue an RPC 10 times in
-sequence and then print the results:
+*Գերադասեք շղթայել և ձևափոխել գոյություն ունեցող `futures`-ները նորերը ստեղծելուց։* `Futures`-ների հետ նման աշխատանքը ապահովում է համակարգում սխալների և չեղարկումների մասին փաստը հասանելի դարձնել բոլոր օղակներին և ազատում են ծրագրավորողին `Java`-ի հիշողության մոդելի մասին մտածելուց։ Նույնիսկ փորձառու ծրագրավորողը կարող է գրել հետևյալ կոդը 10 անգամ `RPC` արձակելու և վերջում արդյունքը տպելու համար։
 
-	val p = new Promise[List[Result]]
-	var results: List[Result] = Nil
-	def collect() {
-	  doRpc() onSuccess { result =>
-	    results = result :: results
-	    if (results.length < 10)
-	      collect()
-	    else
-	      p.setValue(results)
-	  } onFailure { t =>
-	    p.setException(t)
-	  }
+<pre class="prettyprint"><code>val p = new Promise[List[Result]]
+var results: List[Result] = Nil
+def collect() {
+	doRpc() onSuccess { result =>
+		results = result :: results
+		if (results.length < 10)
+			collect()
+		else
+			p.setValue(results)
+	} onFailure { t =>
+		p.setException(t)
+	}
+}
+
+collect()
+p onSuccess { results =>
+	printf("Got results %s\n", results.mkString(", "))
+}
+</code></pre>
+
+Սխալների տեսանելիությունը ապահովելու համար ծրագրավորողը ստիպված էր կոդում բացահայտ սահմանել ճյուղավորումը։ Էլ ավելի վատ խնդիր - այս կոդը սխա՛լ է։
+`results`-ը `volatile` չհայտարարելու դեպքում մենք չենք կարող վստահ լինել, որ `results`-ը պարունակում է նախորդ քալյի արժեքը ամեն քայլում։ `Java`-ի հիշողության մոդելը խառը կենդանի (subtle beast) է։ Բարեբախտաբար այս ամենից հնարավոր է խուսափել կիրառելով դեկլարատիվ ոճը․
+
+<pre class="prettyprint"><code>def collect(results: List[Result] = Nil): Future[List[Result]] =
+	doRpc() flatMap { result =>
+		if (results.length < 9)
+			collect(result :: results)
+		else
+			Future.value(result :: results)
 	}
 
-	collect()
-	p onSuccess { results =>
-	  printf("Got results %s\n", results.mkString(", "))
-	}
+collect() onSuccess { results =>
+	printf("Got results %s\n", results.mkString(", "))
+}
+</code></pre>
 
-The programmer had to ensure that RPC failures are propagated,
-interspersing the code with control flow; worse, the code is wrong!
-Without declaring `results` volatile, we cannot ensure that `results`
-holds the previous value in each iteration. The Java memory model is a
-subtle beast, but luckily we can avoid all of these pitfalls by using
-the declarative style:
+Օգտագործեք `flatMap`-ը գործողություններ շղթայելու և արդյունքը "հավաքելու" համար։ Սա տարածված ֆունլցիոնալ ծրագրավորման մոտեցում է, կիրառված `Future`-ների վրա։ Այն ավելի ճիշտ է, պահանջում է ավելի քիչ նախապատրաստում և ավելի ընթեռնելի է։
 
-	def collect(results: List[Result] = Nil): Future[List[Result]] =
-	  doRpc() flatMap { result =>
-	    if (results.length < 9)
-	      collect(result :: results)
-	    else
-	      Future.value(result :: results)
-	  }
+*Օգտագործեք `Future`-ների կոմբինատորներ*. `Future.select`-ը, `Future.join`-ը, և `Future.collect`-ը արտահայտում են հիմնական գործողությունները, երբ գործ ունեք մի քանի `Future`-ների հետ, որոնք պետք է փոխկապակցվեն։
 
-	collect() onSuccess { results =>
-	  printf("Got results %s\n", results.mkString(", "))
-	}
+*Մի արձակեք սեփական բացառությունները մեթոդներից, որոնք վերադարձնում են `Future`-ներ*
+`Future`-ները ներկայացնում են գործողության թե հաջող, թե անհաջող ավարտները։ Այդ պատճառով կարևոր է, որ գործողության ընթացքում առաջացած խնդիրները պարունակվեն վերադարձվող `Future`-ում։ Կարճ ասած վերադարձրեք <code>Future.exception</code>, այդ բացառությունը արձակելու փոխարեն։
 
-We use `flatMap` to sequence operations and prepend the result onto
-the list as we proceed. This is a common functional programming idiom
-translated to Futures. This is correct, requires less boilerplate, is
-less error prone, and also reads better.
+<pre class="prettyprint"><code>def divide(x: Int, y: Int): Future[Result] = {
+	if (y == 0)
+		return Future.exception(new IllegalArgumentException("Divisor is 0"))
 
-*Use the Future combinators*. `Future.select`, `Future.join`, and
-`Future.collect` codify common patterns when operating over
-multiple futures that should be combined.
+	Future.value(x/y)
+}
+</code></pre>
 
-*Do not throw your own exceptions in methods that return Futures.*
-Futures represent both successful and failed computations. Therefore, it's
-important that errors involved in that computation are properly encapsulated in
-the returned Future. Concretely, return <code>Future.exception</code> instead of
-throwing that exception:
+Անվերականգնելի բացառությունները չպետք է արտահայտվեն `Futures`-ներում։ Այս բացառություններ են օրինակ ռեսուրսների պակասը, օր․՝ `OutOfMemoryError`-ը, կամ `JVM` մակարդակի խնդիրները, օր․՝ `NoSuchMethodError`-ը, երբ հարկավոր է `JVM`-ը անջատել։
 
-	def divide(x: Int, y: Int): Future[Result] = {
-	  if (y == 0)
-	    return Future.exception(new IllegalArgumentException("Divisor is 0"))
-
-	  Future.value(x/y)
-	}
-
-Fatal exceptions should not be represented by Futures. These exceptions
-include ones that are thrown when resources are exhausted, like
-OutOfMemoryError, and also JVM-level errors like NoSuchMethodError. These
-conditions are ones under which the JVM must exit.
-
-The predicate <code>scala.util.control.NonFatal</code> should be used to
-identify exceptions which should be returned as a Future.exception.
+Որպես `Future.exception` վերադարձվող բացառությունները ճանաչելու համար հարկ է օգտագործել <code>scala.util.control.NonFatal</code> պրեդիկատը։
 
 ### Collections
 
