@@ -390,7 +390,8 @@ document](https://www.scala-lang.org/docu/files/collections-api/collections.html
 
 *Գերադասեք չփոփոխվող հավաքածուները։* Նրանք կիրառելի են դեպքերի մեծամասնությունում և հեշտացնում են ծրագրի մասին դատողություններ անելը, որովհետև նույնն են անկաղ նրանց հղման կետից, (referentially transparent) և հետևաբար լռելյայն անվտանգ հոսքերի պարագայում (threadsafe):
 
-*Բացահատ օգտագործեք `mutable` անվանացանկի աղտոտումով, խմբավորեք արտահայտությունները -ին։
+*Բացահատ օգտագործեք `mutable` անվանացանկը*
+`scala.collection.mutable._`-ը ներմուծելու և `Set`-ին դիմելու փոխարեն, արեք այսպես․
 
 <pre -ովclass="prettyprint"><code>import scala.collection.mutable
 val set = mutable.Set()
